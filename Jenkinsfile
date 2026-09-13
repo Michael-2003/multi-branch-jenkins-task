@@ -8,14 +8,6 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                // In a Multibranch Pipeline job, Jenkins already knows the branch.
-                // This checks out the exact commit that triggered the build.
-                checkout scm
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                 script {
@@ -78,7 +70,13 @@ pipeline {
 
     post {
         always {
-            sh "docker logout || true"
+            script {
+                try {
+                    sh "docker logout || true"
+                } catch (e) {
+                    echo "docker logout skipped: ${e.getMessage()}"
+                }
+            }
         }
     }
 }
