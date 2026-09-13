@@ -4,7 +4,7 @@ pipeline {
     environment {
         APP_NAME = 'multi-branch-jenkins-task'
         // Jenkins credentialsId for Docker Hub username/password
-        DOCKER_CREDENTIALS_ID = 'docker'
+        DOCKER_CREDENTIALS_ID = 'dockerhub-creds'
     }
 
     stages {
